@@ -1,0 +1,270 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0B0F19;--navy:#0A2A6B;--blue:#2563EB;--blue2:#6E9BF5;--sky:#DCE8FF;--tint:#F3F7FF;--line:#C8D7F0;--muted:#5A6A88;--white:#fff}
+html,body{background:#fff}
+body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;color:var(--black);font-size:14px;-webkit-font-smoothing:antialiased}
+b,strong{font-weight:700}
+.canvas{position:relative;background:#fff;overflow:hidden}
+.hdr{position:absolute;left:40px;right:40px;top:26px;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid var(--black);padding-bottom:14px}
+.hdr .no{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--blue)}
+.hdr h1{font-size:25px;font-weight:800;letter-spacing:-.5px;margin-top:4px}
+.hdr .feat{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:420px}
+.hdr .feat span{border:1.5px solid var(--navy);color:var(--navy);font-weight:800;font-size:12px;padding:3px 9px;border-radius:999px}
+.foot{position:absolute;left:40px;right:40px;bottom:16px;display:flex;justify-content:space-between;font-size:11px;color:var(--muted);letter-spacing:.02em}
+
+/* phone */
+.phone{position:absolute;width:390px;height:844px;border-radius:46px;overflow:hidden;background:#fff;box-shadow:0 0 0 3px var(--black),0 18px 40px -18px rgba(10,42,107,.35)}
+.scr{position:relative;width:100%;height:100%;display:flex;flex-direction:column}
+.sb{height:44px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px}
+.sb .sbr{display:flex;gap:4px;align-items:center}.sb .sbr i{display:block;width:16px;height:9px;border-radius:2px;background:var(--black)}.sb .sbr i:nth-child(2){width:12px}.sb .sbr i:nth-child(3){width:22px;border-radius:3px}
+.appbar{height:52px;flex:none;display:flex;align-items:center;gap:10px;padding:0 20px}
+.appbar h2{font-size:18px;font-weight:800;letter-spacing:-.3px;flex:1}
+.appbar .back{font-size:28px;line-height:1;margin-top:-4px}
+.ab-r{display:flex;align-items:center;gap:10px}
+.body{flex:1;padding:0 20px;overflow:hidden;display:flex;flex-direction:column;gap:12px}
+.tabbar{height:84px;flex:none;border-top:1.5px solid var(--line);display:flex;justify-content:space-around;align-items:flex-start;padding-top:10px;background:#fff}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted);width:60px}
+.tab .ti{width:22px;height:22px;border:2px solid currentColor;border-radius:7px}
+.tab.on{color:var(--blue);font-weight:800}.tab.on .ti{background:var(--blue)}
+.tab.fab .ti{width:52px;height:52px;border-radius:50%;border:none;background:var(--blue);margin-top:-22px;box-shadow:0 0 0 5px #fff;display:grid;place-items:center;color:#fff;font-size:18px}
+.tab.fab{color:var(--black);font-weight:700}
+
+/* atoms */
+.row{display:flex;align-items:center;gap:8px}.between{justify-content:space-between}.col{display:flex;flex-direction:column}
+.card{border:1.5px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+.card.tint{background:var(--tint)}
+.card.navy{background:var(--navy);border-color:var(--navy);color:#fff}
+.card.black{background:var(--black);border-color:var(--black);color:#fff}
+.lbl{font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.02em}
+.muted{color:var(--muted)}.blue{color:var(--blue)}.sm{font-size:12px}.xs{font-size:11px}
+.btn{height:52px;border-radius:12px;background:var(--blue);color:#fff;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn.o{background:#fff;color:var(--blue);box-shadow:inset 0 0 0 1.5px var(--blue)}
+.btn.k{background:var(--black)}
+.btn.g{background:#fff;color:var(--black);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.s{height:36px;font-size:13px;border-radius:9px;padding:0 12px}
+.chip{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 12px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--line);font-size:13px;white-space:nowrap;background:#fff;color:var(--black)}
+.chip.sm{height:24px;padding:0 9px;font-size:11.5px}
+.chip.on{background:var(--blue);color:#fff;box-shadow:none;font-weight:700}
+.chip.k{background:var(--black);color:#fff;box-shadow:none;font-weight:700}
+.chip.n{background:var(--navy);color:#fff;box-shadow:none;font-weight:700}
+.chip.s{background:var(--sky);box-shadow:none;color:var(--navy);font-weight:700}
+.chip.dash{box-shadow:none;border:1.5px dashed var(--blue2);color:var(--blue)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.input{height:46px;border-radius:10px;box-shadow:inset 0 0 0 1.5px var(--line);padding:0 14px;display:flex;align-items:center;justify-content:space-between;font-size:14px;color:var(--black)}
+.input.hint{color:var(--muted)}
+.toggle{width:44px;height:26px;border-radius:13px;background:var(--line);position:relative;flex:none}
+.toggle::after{content:'';position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.toggle.on{background:var(--blue)}.toggle.on::after{left:21px}
+.ph{position:relative;overflow:hidden;background:var(--tint);box-shadow:inset 0 0 0 1.5px var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center}
+.phx{position:absolute;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hatch{position:relative;overflow:hidden;background:#EAF1FF}
+.hatch>svg{position:absolute;left:0;top:0}
+.ph>span{background:#fff;padding:2px 8px;border-radius:6px;font-size:11px;color:var(--muted);font-weight:700;position:relative;z-index:1}
+.ph.dark{background:#141B2D;box-shadow:none}
+.face{position:absolute;left:50%;top:50%;width:46%;aspect-ratio:3/4;transform:translate(-50%,-50%);border:2px dashed var(--blue);border-radius:50%;z-index:1;background:rgba(255,255,255,.55)}
+.ph.dark .face{background:rgba(37,99,235,.15);border-color:var(--blue2)}
+.sk{height:9px;border-radius:5px;background:var(--sky)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--sky);box-shadow:inset 0 0 0 1.5px var(--line);flex:none}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.d-f{background:var(--blue)}.d-p{background:var(--sky);box-shadow:inset 0 0 0 1.5px var(--blue2)}.d-a{background:var(--black)}.d-o{background:#fff;box-shadow:inset 0 0 0 1.5px var(--muted)}
+.seg{display:flex;background:var(--tint);border-radius:11px;padding:3px;box-shadow:inset 0 0 0 1.5px var(--line)}
+.seg>span{flex:1;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);font-weight:600}
+.seg>span.on{background:var(--navy);color:#fff;font-weight:800}
+.segbar{display:flex;height:14px;border-radius:7px;overflow:hidden;gap:2px;background:#fff}
+.segbar i{display:block}
+.segbar .f{background:var(--blue)}.segbar .p{background:var(--sky)}.segbar .a{background:var(--black)}.segbar .u{position:relative;overflow:hidden;background:#EAF1FF;box-shadow:inset 0 0 0 1px var(--blue2)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:14px;height:10px;border-radius:3px;display:block}
+.slider{flex:1;height:6px;border-radius:3px;background:var(--sky);position:relative}
+.slider i{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:3px}
+.slider i::after{content:'';position:absolute;right:-8px;top:-5px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--blue)}
+.pill{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:999px;font-weight:800;font-size:14px}
+.pill i{width:9px;height:9px;border-radius:50%;background:currentColor;display:block}
+.pill.focus{background:var(--sky);color:var(--blue)}
+.pill.away{background:var(--black);color:#fff}
+.pill.unk{background:#EAF1FF;color:var(--navy);border:1.5px dashed var(--blue2)}
+.pill.man{background:#fff;color:var(--black);box-shadow:inset 0 0 0 1.5px var(--black)}
+.ring{position:relative;border-radius:50%;display:grid;place-items:center}
+.ring>svg,.donut>svg{position:absolute;left:0;top:0}
+.ring .in{position:relative}
+.ring .in{border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.timer{font-weight:800;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;color:var(--navy);line-height:1}
+.timer.muted{color:#9AA8C4}
+.rb{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-size:18px;font-weight:800}
+.rb.out{box-shadow:inset 0 0 0 2px var(--navy);color:var(--navy)}
+.rb.k{background:var(--black);color:#fff}
+.rb.b{background:var(--blue);color:#fff}
+.rec{width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px var(--sky);display:inline-block}
+.divider{height:1.5px;background:var(--line)}
+.dim{position:absolute;inset:0;background:rgba(11,15,25,.55);z-index:20}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;z-index:21;padding:10px 20px 30px;display:flex;flex-direction:column;gap:12px}
+.handle{width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 4px}
+.modal{position:absolute;left:24px;right:24px;z-index:21;background:#fff;border-radius:20px;padding:24px 20px 20px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+.ico-c{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-size:24px;font-weight:800}
+.bars{display:flex;align-items:flex-end;gap:10px;height:110px;padding:0 4px}
+.bars>div{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end}
+.bars>div>i{display:block;width:100%;border-radius:6px 6px 2px 2px;background:var(--blue2)}
+.bars>div.now>i{background:var(--navy)}
+.bars>div>small{font-size:11px;color:var(--muted)}
+.donut{border-radius:50%;position:relative;flex:none}
+.lock{display:inline-block;width:10px;height:9px;border-radius:2px;background:currentColor;position:relative;margin-top:3px}
+.lock::before{content:'';position:absolute;left:2px;top:-6px;width:6px;height:7px;border:2px solid currentColor;border-bottom:none;border-radius:4px 4px 0 0;box-sizing:border-box}
+
+/* annotations */
+.hl{position:absolute;border:1.5px dashed var(--blue);border-radius:10px;z-index:60;pointer-events:none}
+.ld{position:absolute;height:0;border-top:1.5px dashed var(--blue);z-index:59}
+.phone-only .ld{display:none!important}
+.m{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:12.5px;font-weight:800;display:grid;place-items:center;box-shadow:0 0 0 2.5px #fff;z-index:61}
+.notes{position:absolute;display:flex;flex-direction:column;gap:14px}
+.note{display:flex;gap:12px;align-items:flex-start}
+.note .n{flex:none;width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:12.5px;font-weight:800;display:grid;place-items:center;margin-top:1px}
+.note h4{font-size:15px;font-weight:800;letter-spacing:-.2px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.note h4 em{font-style:normal;font-size:10.5px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:1px 7px}
+.note p{font-size:13px;line-height:1.55;color:var(--muted);margin-top:3px}
+.extra{border-top:1.5px solid var(--line);padding-top:14px;display:flex;flex-direction:column;gap:10px}
+.extra .lbl{margin-bottom:2px}
+.phone-only .hdr,.phone-only .notes,.phone-only .foot,.phone-only .hl,.phone-only .m{display:none!important}
+
+/* PC */
+.browser{position:absolute;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 0 0 2.5px var(--black),0 24px 50px -24px rgba(10,42,107,.35);display:flex;flex-direction:column}
+.bchrome{height:42px;flex:none;background:var(--tint);border-bottom:1.5px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 16px}
+.bchrome .dots{display:flex;gap:7px}.bchrome .dots i{width:11px;height:11px;border-radius:50%;background:var(--line);display:block}
+.bchrome .url{flex:1;max-width:520px;height:26px;border-radius:8px;background:#fff;box-shadow:inset 0 0 0 1.5px var(--line);font-size:12px;color:var(--muted);display:flex;align-items:center;padding:0 12px;gap:6px}
+.app{flex:1;display:flex;min-height:0}
+.side{width:220px;flex:none;background:var(--black);color:#fff;padding:22px 16px;display:flex;flex-direction:column;gap:6px}
+.side .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;margin:0 6px 22px}
+.side .logo i{width:28px;height:28px;border-radius:8px;background:var(--blue);display:block}
+.side .it{height:42px;border-radius:10px;display:flex;align-items:center;gap:12px;padding:0 12px;font-size:14px;color:#AEB9D3}
+.side .it i{width:18px;height:18px;border-radius:5px;border:2px solid currentColor;display:block}
+.side .it.on{background:var(--navy);color:#fff;font-weight:700}
+.side .it.on i{background:var(--blue2);border-color:var(--blue2)}
+.side .it.dis{opacity:.45}
+.side .sp{flex:1}
+.main{flex:1;padding:26px 30px;display:flex;flex-direction:column;gap:18px;min-width:0;background:#fff}
+.pcnotes{position:absolute;display:grid;grid-template-columns:repeat(4,1fr);gap:18px 28px}
+ body{width:1940px;height:1880px;overflow:hidden}</style><script>
+function lmCompat(){
+  const NS='http://www.w3.org/2000/svg';
+  const svg=(w,h,cls)=>{const s=document.createElementNS(NS,'svg');s.setAttribute('width',w);s.setAttribute('height',h);s.setAttribute('viewBox','0 0 '+w+' '+h);if(cls)s.setAttribute('class',cls);return s;};
+  const line=(s,x1,y1,x2,y2,c,w)=>{const l=document.createElementNS(NS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);l.setAttribute('stroke',c);l.setAttribute('stroke-width',w);s.appendChild(l);};
+  document.querySelectorAll('.canvas *').forEach(el=>{
+    const bs=getComputedStyle(el).boxShadow;if(!bs||bs==='none'||bs.indexOf('inset')<0)return;
+    const parts=bs.split(/,(?![^(]*\))/).map(s=>s.trim());const keep=[];let b=null;
+    parts.forEach(p=>{const m=p.match(/^(rgba?\([^)]*\)|#[0-9a-f]+)\s+0px\s+0px\s+0px\s+([\d.]+)px\s+inset$/i);if(m)b={c:m[1],w:m[2]};else keep.push(p);});
+    if(b){el.style.boxShadow=keep.length?keep.join(', '):'none';el.style.border=b.w+'px solid '+b.c;}
+  });
+  document.querySelectorAll('.ph').forEach(el=>{
+    const w=el.clientWidth,h=el.clientHeight;if(!w||!h)return;
+    const s=svg(w,h,'phx');const c=el.classList.contains('dark')?'#2A3550':'#C8D7F0';
+    line(s,0,0,w,h,c,1.5);line(s,w,0,0,h,c,1.5);el.insertBefore(s,el.firstChild);
+  });
+  document.querySelectorAll('.segbar .u,.hatch').forEach(el=>{
+    const w=el.clientWidth,h=el.clientHeight;if(!w||!h)return;
+    const s=svg(w,h);for(let k=-h;k<w+h;k+=5)line(s,k,h,k+h,0,'#6E9BF5',1.4);el.appendChild(s);
+  });
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  lmCompat();
+  if(document.body.classList.contains('phone-only'))return;
+  const cv=document.querySelector('.canvas');const cr=cv.getBoundingClientRect();
+  const dev=document.querySelector('.phone,.browser');const dr=dev.getBoundingClientRect();
+  const isPhone=dev.classList.contains('phone');const placed=[];
+  document.querySelectorAll('[data-m]').forEach(el=>{
+    if(!el.dataset.m)return;
+    const r=el.getBoundingClientRect();
+    const L=Math.max(r.left,dr.left+4),T=Math.max(r.top,dr.top+4),R=Math.min(r.right,dr.right-4),B=Math.min(r.bottom,dr.bottom-4);
+    const hl=document.createElement('div');hl.className='hl';
+    Object.assign(hl.style,{left:(L-cr.left-4)+'px',top:(T-cr.top-4)+'px',width:(R-L+8)+'px',height:(B-T+8)+'px'});
+    cv.appendChild(hl);
+    const m=document.createElement('div');m.className='m';m.textContent=el.dataset.m;
+    let x=L-cr.left-14,y=T-cr.top-14;
+    if(isPhone){
+      x=dr.right-cr.left+12;y=T-cr.top-2;
+      while(placed.some(py=>Math.abs(py-y)<28))y+=28;
+      placed.push(y);
+      const x1=R-cr.left+4;
+      const ld=document.createElement('div');ld.className='ld';
+      Object.assign(ld.style,{left:x1+'px',top:(y+12)+'px',width:(x-x1)+'px'});cv.appendChild(ld);
+    }else{
+      x=Math.max(x,dr.left-cr.left-10);y=Math.max(y,dr.top-cr.top-10);
+    }
+    Object.assign(m.style,{left:x+'px',top:y+'px'});cv.appendChild(m);
+  });
+});</script></head><body class=""><div class="canvas" style="width:1940px;height:1880px">
+    <div class="hdr" style="left:30px;right:30px"><div><div class="no">LEARNINGMATE WIREFRAME · 00</div><h1>전체 사용자 흐름 · 화면 맵</h1></div>
+      <div class="col" style="align-items:flex-end;gap:6px"><div class="row sm" style="gap:8px"><b>레퍼런스 (uibowl.io)</b><span class="chip sm n">열품타 · 통계·리포트(공부 현황)</span><span class="chip sm n">Focustown · 함께 공부 · 보상</span></div><span class="xs muted">색상: 파랑 계열 + 검정 + 흰색 · 모바일 웹 우선, PC 레이아웃은 PC01–PC03</span></div></div>
+    <div style="position:absolute;left:30px;right:30px;top:140px;height:1130px;border-radius:24px;border:1.5px solid var(--line);background:linear-gradient(#fff,#fff)"></div><div style="position:absolute;left:54px;top:158px;display:flex;gap:10px;align-items:baseline"><b style="font-size:18px">개인 학습</b><span class="sm muted">날짜별 계획 → 순공 타이머(카메라 감지 · 배경음 · 타임랩스) → 종료 후 기록 · 통계</span></div>
+    <div style="position:absolute;left:30px;right:30px;top:1295px;height:545px;border-radius:24px;border:1.5px solid var(--line);background:linear-gradient(#fff,#fff)"></div><div style="position:absolute;left:54px;top:1313px;display:flex;gap:10px;align-items:baseline"><b style="font-size:18px">그룹 학습</b><span class="sm muted">초대 코드로 스터디방 입장 → 각자 타이머 · 서로의 상태 · 선택적 캠 공유</span></div>
+    <svg width="1940" height="1880" style="position:absolute;left:0;top:0" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2563EB"/></marker>
+    <marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#2563EB"/></marker></defs>
+    <style>.ar{stroke:#2563EB;stroke-width:2.5;marker-end:url(#ah);fill:none}.ln{stroke:#2563EB;stroke-width:2.5;fill:none}text{font-family:'Noto Sans KR','Malgun Gothic',sans-serif}</style>
+    <line x1="238" y1="431" x2="320" y2="431" class="ar"/><g><rect x="250.8" y="378" width="58.400000000000006" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="280" y="395.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">로그인</text></g><line x1="508" y1="431" x2="590" y2="431" class="ar"/><g><rect x="495.2" y="378" width="109.60000000000001" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="550" y="395.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">계획 ▶ 시작</text></g><line x1="778" y1="431" x2="860" y2="431" class="ar"/><g><rect x="778" y="378" width="84" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="820" y="395.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">집중 시작</text></g><line x1="1048" y1="431" x2="1130" y2="431" class="ar"/><g><rect x="1067.2" y="378" width="45.6" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="1090" y="395.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">종료</text></g><line x1="1318" y1="431" x2="1400" y2="431" class="ar"/><g><rect x="1318" y="378" width="84" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="1360" y="395.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">기록 보기</text></g><line x1="1588" y1="431" x2="1670" y2="431" class="ar"/><g><rect x="1588" y="378" width="84" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="1630" y="395.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">세션 선택</text></g><line x1="415" y1="696" x2="415" y2="798" class="ar" marker-start="url(#ah2)"/><g><rect x="328.2" y="740" width="173.60000000000002" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="415" y="757.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">＋ 계획 추가 ⇄ 저장</text></g><path d="M 955 696 L 955 714" class="ln"/><path d="M 845 714 L 1065 714" class="ln"/><line x1="845" y1="714" x2="845" y2="798" class="ar"/><g><rect x="739" y="749" width="212" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="845" y="766.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">이탈 · 판정 불가 ⇄ 복귀</text></g><line x1="1065" y1="714" x2="1065" y2="798" class="ar"/><g><rect x="997.4" y="749" width="135.2" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="1065" y="766.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">탭 이탈 ⇄ 복귀</text></g><path d="M 1225 696 L 1225 714" class="ln"/><path d="M 1225 714 L 1345 714" class="ln"/><line x1="1345" y1="714" x2="1345" y2="798" class="ar"/><g><rect x="1296.6" y="749" width="96.80000000000001" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="1345" y="766.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">포인트 내역</text></g><rect x="160" y="1517" width="300" height="68" rx="14" fill="#F3F7FF" stroke="#C8D7F0" stroke-width="1.5"/><text x="310" y="1545" text-anchor="middle" font-size="14" font-weight="800" fill="#0B0F19">02 홈 · 하단 탭 '스터디'</text><text x="310" y="1567" text-anchor="middle" font-size="12" fill="#5A6A88">PC는 사이드 메뉴 · 스터디방</text><line x1="468" y1="1551" x2="590" y2="1551" class="ar"/><line x1="778" y1="1551" x2="860" y2="1551" class="ar"/><g><rect x="758.8" y="1498" width="122.4" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="820" y="1515.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">초대 코드 입장</text></g><line x1="1048" y1="1551" x2="1400" y2="1551" class="ar"/><g><rect x="1178" y="1498" width="84" height="26" rx="13" fill="#fff" stroke="#2563EB" stroke-width="1.5"/><text x="1220" y="1515.5" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0A2A6B">방 나가기</text></g><rect x="1410" y="1505" width="440" height="92" rx="14" fill="#0A2A6B"/><text x="1432" y="1539" font-size="15" font-weight="800" fill="#fff">09 기록 · 통계에서 개인 세션 확인</text><text x="1432" y="1565" font-size="12.5" fill="#DCE8FF">그룹에서 측정한 시간도 개인 세션으로 저장 (M01 · M02)</text></svg>
+    <figure style="position:absolute;left:1680px;top:250px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/10.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">10</b><b style="font-size:13.5px;letter-spacing:-.2px">세션 상세</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M02</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M05</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M12</span></div>
+    </figure>
+    <figure style="position:absolute;left:600px;top:1370px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/11.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">11</b><b style="font-size:13.5px;letter-spacing:-.2px">스터디방 · 입장</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M08</span></div>
+    </figure>
+    <figure style="position:absolute;left:870px;top:1370px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/12.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">12</b><b style="font-size:13.5px;letter-spacing:-.2px">스터디방 · 캠스터디</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M08</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M01</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M05</span></div>
+    </figure>
+    <figure style="position:absolute;left:1260px;top:810px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/13.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">13</b><b style="font-size:13.5px;letter-spacing:-.2px">마이 · 보상과 수집</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M12</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M03</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M07</span></div>
+    </figure>
+    <figure style="position:absolute;left:60px;top:250px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/01.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">01</b><b style="font-size:13.5px;letter-spacing:-.2px">로그인 · 세션 복구</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">공통 기반</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M01</span></div>
+    </figure>
+    <figure style="position:absolute;left:330px;top:250px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/02.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">02</b><b style="font-size:13.5px;letter-spacing:-.2px">홈 · 오늘의 플래너</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M06</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M07</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M01</span></div>
+    </figure>
+    <figure style="position:absolute;left:600px;top:250px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/04.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">04</b><b style="font-size:13.5px;letter-spacing:-.2px">학습 시작 설정</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M01</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M03</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M05</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M10</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M11</span></div>
+    </figure>
+    <figure style="position:absolute;left:870px;top:250px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/05.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">05</b><b style="font-size:13.5px;letter-spacing:-.2px">집중 세션 (AI 감지)</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M01</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M05</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M09</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M10</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M11</span></div>
+    </figure>
+    <figure style="position:absolute;left:1140px;top:250px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/08.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">08</b><b style="font-size:13.5px;letter-spacing:-.2px">세션 종료 · 결과</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M01</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M02</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M11</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M12</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M06</span></div>
+    </figure>
+    <figure style="position:absolute;left:1410px;top:250px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/09.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">09</b><b style="font-size:13.5px;letter-spacing:-.2px">기록 · 통계</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M02</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M03</span></div>
+    </figure>
+    <figure style="position:absolute;left:330px;top:810px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/03.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">03</b><b style="font-size:13.5px;letter-spacing:-.2px">계획 추가 · 시험 등록</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M06</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M03</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M07</span></div>
+    </figure>
+    <figure style="position:absolute;left:760px;top:810px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/06.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">06</b><b style="font-size:13.5px;letter-spacing:-.2px">이탈 · 판정 불가</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M05</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M01</span></div>
+    </figure>
+    <figure style="position:absolute;left:980px;top:810px;width:170px">
+      <img src="file:///C:/ssafy/learningDemo/Wireframe/_source/thumbs/07.png" style="width:170px;height:362px;display:block">
+      <figcaption style="margin-top:10px;display:flex;gap:6px;align-items:baseline;white-space:nowrap"><b style="color:var(--blue);font-size:13px">07</b><b style="font-size:13.5px;letter-spacing:-.2px">탭 복귀 안내</b></figcaption>
+      <div style="display:flex;gap:4px;margin-top:5px;width:240px;flex-wrap:wrap"><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M09</span><span style="font-size:10px;font-weight:800;color:var(--navy);box-shadow:inset 0 0 0 1.2px var(--navy);border-radius:999px;padding:0 6px">M01</span></div>
+    </figure>
+    <div class="foot" style="left:30px;right:30px"><span>LearningMate · 1차 MVP 와이어프레임 v0.1 · 2026.11.24</span><span>화살표 양방향 = 상태 변화 후 원래 화면으로 복귀</span></div>
+  </div></body></html>
