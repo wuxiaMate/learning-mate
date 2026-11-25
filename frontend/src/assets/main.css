@@ -1,0 +1,337 @@
+/*
+ * LearningMate 전역 스타일
+ * 무협 팔레트: 먹(Ink) · 한지(Paper) · 인주(Cinnabar) · 청록(Jade) · 금(Gold)
+ * 와이어프레임 v0.3 (Wireframe/_source/v3/core.mjs) 의 토큰을 그대로 옮겼어요.
+ * 여러 화면에서 같이 쓰는 것만 여기에 두고, 화면 하나에서만 쓰는 스타일은 각 .vue 의 <style scoped> 에 둬요.
+ */
+
+:root {
+  /* 색 */
+  --ink: #1c1814; /* 먹 — 본문 글자, 사이드바 */
+  --ink-2: #2e2822;
+  --jade: #23403a; /* 청록 — 보조 강조 */
+  --cinnabar: #a8322a; /* 인주 — 메인 강조, 버튼 */
+  --gold: #c9a15b; /* 금 — 경지·보상 */
+  --sand: #efe2cb;
+  --paper: #f8f2e7; /* 한지 — 옅은 카드 배경 */
+  --bg: #f2ebdd; /* 앱 배경 */
+  --line: #ded0b8;
+  --line-2: #ebe2d2;
+  --muted: #6b5e4e;
+  --muted-2: #a39580;
+  --rose: #faece6; /* 선택된 항목 배경 */
+
+  /* 글꼴 — 제목·숫자는 명조, 본문은 고딕 */
+  --font-sans: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+  --font-serif: 'Noto Serif KR', 'Batang', serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.serif {
+  font-family: var(--font-serif);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ---------- 버튼 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid var(--cinnabar);
+  background: var(--cinnabar);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: filter 0.15s;
+}
+.btn:hover {
+  filter: brightness(1.08);
+}
+.btn:disabled {
+  background: var(--line-2);
+  border-color: var(--line-2);
+  color: var(--muted-2);
+  cursor: not-allowed;
+  filter: none;
+}
+.btn-lg {
+  height: 48px;
+  padding: 0 22px;
+  font-size: 15px;
+  border-radius: 12px;
+}
+.btn-ghost {
+  background: #fff;
+  color: var(--ink);
+  border-color: var(--line);
+}
+.btn-ghost:hover {
+  filter: none;
+  background: var(--paper);
+}
+
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: #fff;
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.kbd {
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 16px;
+  padding: 0 5px;
+  border-radius: 5px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: #fff;
+}
+
+/* ---------- 카드 ---------- */
+.card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.card-head h3 {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-head .sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ---------- 칩 · 과목 · 배지 ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.chip-dash {
+  border-style: dashed;
+  border-color: var(--gold);
+  color: var(--cinnabar);
+}
+.chip-sand {
+  background: var(--sand);
+  border-color: var(--sand);
+  color: var(--jade);
+  font-weight: 700;
+}
+
+.subj {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.subj i {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.badge-red {
+  background: var(--cinnabar);
+  color: #fff;
+}
+.badge-line {
+  background: #fff;
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+
+/* ---------- 폼 ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+.help {
+  font-size: 12px;
+  color: var(--muted);
+}
+.input {
+  height: 40px;
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 14px;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--cinnabar);
+  box-shadow: 0 0 0 3px rgba(168, 50, 42, 0.14);
+}
+select.input {
+  appearance: none;
+  padding-right: 34px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B5E4E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+}
+
+/* 토글 스위치: <button class="toggle" :class="{ on }"> */
+.toggle {
+  position: relative;
+  width: 40px;
+  height: 24px;
+  flex: none;
+  border-radius: 12px;
+  background: #d8ccb8;
+  transition: background 0.15s;
+}
+.toggle::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: left 0.15s;
+}
+.toggle.on {
+  background: var(--cinnabar);
+}
+.toggle.on::after {
+  left: 19px;
+}
+
+/* 슬라이더: <input type="range" class="range"> */
+.range {
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background:
+    linear-gradient(var(--cinnabar), var(--cinnabar)) 0 / var(--fill, 50%) 100% no-repeat,
+    var(--sand);
+  cursor: pointer;
+}
+.range::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--cinnabar);
+}
+.range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--cinnabar);
+}
+
+/* ---------- 폐관 수련 화면의 반투명 요소 ---------- */
+.glass {
+  background: rgba(248, 242, 231, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 10px 30px -14px rgba(40, 30, 20, 0.45);
+  backdrop-filter: blur(6px);
+}

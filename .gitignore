@@ -1,0 +1,49 @@
+# 저장소 전체 공통 ignore
+# (프론트 전용 규칙은 frontend/.gitignore 에 있어요)
+
+# ---------- 비밀 값 · 환경 변수 ----------
+# OAuth client secret, DB 비밀번호 등은 절대 올리지 않아요. 예시 파일(.env.example)만 올려요.
+.env
+.env.*
+!.env.example
+application-local.yml
+application-local.properties
+application-secret.yml
+application-secret.properties
+*.pem
+*.key
+
+# ---------- 백엔드 (Spring · Gradle · Maven) ----------
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+target/
+out/
+bin/
+*.class
+logs/
+*.log
+
+# ---------- IDE ----------
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/*
+!.vscode/extensions.json
+.settings/
+.project
+.classpath
+
+# ---------- OS ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---------- 문서 ----------
+# Word·Excel 이 파일을 열어 둘 때 만드는 잠금 파일 (~$기획서.docx)
+~$*
+
+# ---------- 개인 도구 설정 ----------
+# Claude Code 로컬 설정 (사람마다 다름)
+.claude/
