@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wuxiamate.global.constant.SessionConst;
+import com.wuxiamate.global.response.ApiResponse;
+import com.wuxiamate.user.dto.response.UserResponse;
+import com.wuxiamate.user.service.UserService;
+
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +23,8 @@ public class DevAuthController {
 	
 	@PostMapping("/login")
 	public ApiResponse<UserResponse> login(@RequestBody DevLoginRequest request, HttpSession session){
-		
+		UserResponse user = userService.getUser(request.userId());
+		session.setAttribute(SessionConst.LOGIN_USER_ID, user.id());
+		return ApiResponse.ok(user);
 	}
 }
