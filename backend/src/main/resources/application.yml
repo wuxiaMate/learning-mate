@@ -1,0 +1,63 @@
+# 공통 설정 (git에 올림)
+# 비밀값(DB 비밀번호, OAuth client-secret)은 여기 쓰지 않아요.
+#   - 로컬: application-local.yml (gitignore됨, application-local.example.yml을 복사해서 사용)
+#   - 배포: 환경변수
+
+spring:
+  application:
+    name: wuxia-mate
+  profiles:
+    # 프로필을 따로 지정하지 않고 실행하면 local로 실행 (배포 시에는 SPRING_PROFILES_ACTIVE로 지정)
+    default: local
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/wuxiamate}
+    username: ${DB_USERNAME:wuxiamate}
+    password: ${DB_PASSWORD:}
+
+  jpa:
+    # 컨트롤러까지 DB 연결을 붙잡고 있지 않도록 꺼요 (지연 로딩은 서비스 안에서 끝내기)
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          # 시각은 UTC로 저장 (PC-05 명세 7장)
+          time_zone: UTC
+
+server:
+  port: 8080
+  servlet:
+    session:
+      # 기본 30분이면 AI 모드로 오래 공부한 뒤 출관할 때 401이 나요 (PC-01 명세 8장)
+      timeout: 12h
+      cookie:
+        http-only: true
+        same-site: lax
+
+# 소셜 로그인 (PC-01 명세 5장). client-id·secret은 application-local.yml 또는 환경변수로 넣어요.
+oauth:
+  base-redirect-uri: ${APP_BASE_URL:http://localhost:5173}/auth/callback
+  google:
+    client-id: ${GOOGLE_CLIENT_ID:}
+    client-secret: ${GOOGLE_CLIENT_SECRET:}
+  kakao:
+    client-id: ${KAKAO_CLIENT_ID:}
+    client-secret: ${KAKAO_CLIENT_SECRET:}
+  naver:
+    client-id: ${NAVER_CLIENT_ID:}
+    client-secret: ${NAVER_CLIENT_SECRET:}
+
+---
+# local 프로필 전용 공통 설정 (비밀값 아님)
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    hibernate:
+      # 엔티티를 보고 테이블을 자동으로 만들고 고쳐요 (로컬 개발용. 배포에서는 쓰지 않아요)
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
