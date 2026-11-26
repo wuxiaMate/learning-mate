@@ -1,0 +1,30 @@
+# 로컬 개발용 PostgreSQL
+#   실행:  docker compose up -d
+#   중지:  docker compose stop
+#   초기화(데이터 전부 삭제): docker compose down -v
+#
+# 접속 정보는 backend/src/main/resources/application-local.yml 과 맞춰요.
+# 로컬 전용 비밀번호이고, 포트는 이 PC(127.0.0.1)에서만 열려요.
+
+services:
+  postgres:
+    image: postgres:18
+    container_name: wuxiamate-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: wuxiamate
+      POSTGRES_USER: wuxiamate
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-wuxiamate}
+      TZ: UTC
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - wuxiamate-pgdata:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wuxiamate -d wuxiamate"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  wuxiamate-pgdata:
